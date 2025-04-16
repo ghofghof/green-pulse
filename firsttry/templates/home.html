@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Pulse - Intelligent Energy Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        :root {
+            --primary: #00695C;
+            --primary-light: #4DB6AC;
+            --secondary: #8BC34A;
+            --accent: #FFC107;
+            --dark: #212121;
+            --light: #F5F5F5;
+            --danger: #F44336;
+            --warning: #FF9800;
+            --success: #4CAF50;
+            --info: #2196F3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+
+        .slogan {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .date {
+            font-size: 14px;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 105, 92, 0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 42px;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #FFD54F;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #00897B;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: white;
+        }
+
+        .results {
+            margin-top: 40px;
+            display: none;
+        }
+
+        .result-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .result-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-item {
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: var(--light);
+        }
+
+        .result-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--primary);
+        }
+
+        .result-label {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .chart-container {
+            height: 400px;
+            margin-bottom: 40px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comparison-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 500;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .comparison-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .badge-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .badge-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .badge-info {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .recommendations {
+            margin-top: 30px;
+        }
+
+        .recommendation {
+            display: flex;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+        }
+
+        .recommendation-icon {
+            margin-right: 15px;
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        .recommendation-content h4 {
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .footer-section p {
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 5px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 10px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animated {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-leaf logo-icon"></i>
+                <div>
+                    GREEN PULSE
+                    <div class="slogan">Feel the pulse of sustainability</div>
+                </div>
+            </div>
+            <div class="date" id="current-date"></div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Intelligent Energy Analysis</h1>
+            <p>Optimize your energy consumption, reduce costs and minimize your environmental impact with our AI-powered analysis system</p>
+            <a href="#analysis" class="btn btn-primary">Start Analysis</a>
+        </div>
+    </section>
+
+    <section class="container" id="analysis">
+        <div class="card animated">
+            <h2 class="card-title"><i class="fas fa-chart-line"></i> Energy Consumption Analysis</h2>
+            <form id="energy-form">
+                <div class="form-group">
+                    <label for="energy-type">Energy Type</label>
+                    <select id="energy-type" required>
+                        <option value="">Select energy type</option>
+                        <option value="Fioul">Fioul</option>
+                        <option value="Gaz">Gaz</option>
+                        <option value="Electricité">Electricité</option>
+                        <option value="Solaire">Solaire</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="equipment-type">Equipment Category</label>
+                    <select id="equipment-type" required>
+                        <option value="">Select equipment category</option>
+                        <option value="Production">Production</option>
+                        <option value="Transformation">Transformation</option>
+                        <option value="Refrigeration">Refrigeration</option>
+                        <option value="Conditionnement">Conditionnement</option>
+                        <option value="Nettoyage">Nettoyage</option>
+                        <option value="Controle Qualite">Controle Qualite</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="lifetime">Estimated Lifetime (years)</label>
+                    <input type="number" id="lifetime" min="1" max="50" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="analyze-btn">Analyze</button>
+            </form>
+
+            <div class="spinner" id="loading-spinner"></div>
+        </div>
+
+        <div class="results" id="results-section">
+            <div class="result-card animated">
+                <h2 class="result-title">Analysis Results</h2>
+
+                <div class="result-grid">
+                    <div class="result-item animated delay-1">
+                        <i class="fas fa-bolt" style="font-size: 30px; color: var(--accent);"></i>
+                        <div class="result-value" id="consumption-value">0</div>
+                        <div class="result-label">Energy Consumption</div>
+                        <div class="badge" id="consumption-badge">Level</div>
+                    </div>
+
+                    <div class="result-item animated delay-2">
+                        <i class="fas fa-cloud" style="font-size: 30px; color: var(--info);"></i>
+                        <div class="result-value" id="emission-value">0</div>
+                        <div class="result-label">CO2 Emissions</div>
+                        <div class="badge" id="emission-badge">Level</div>
+                    </div>
+
+                    <div class="result-item animated delay-3">
+                        <i class="fas fa-euro-sign" style="font-size: 30px; color: var(--success);"></i>
+                        <div class="result-value" id="cost-value">0</div>
+                        <div class="result-label">Estimated Cost</div>
+                        <div class="badge" id="cost-badge">Level</div>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <div class="tab active" data-tab="summary">Summary</div>
+                    <div class="tab" data-tab="comparison">Comparison</div>
+                    <div class="tab" data-tab="recommendations">Recommendations</div>
+                </div>
+
+                <div class="tab-content active" id="summary-tab">
+                    <div class="chart-container">
+                        <canvas id="consumption-chart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <div id="impact-chart"></div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="comparison-tab">
+                    <div class="chart-container">
+                        <canvas id="comparison-chart"></canvas>
+                    </div>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Your Value</th>
+                                <th>Sector Average</th>
+                                <th>Difference</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Consumption (kWh)</td>
+                                <td id="your-consumption">0</td>
+                                <td>2920</td>
+                                <td id="consumption-diff">0</td>
+                                <td><span class="badge" id="consumption-impact">Level</span></td>
+                            </tr>
+                            <tr>
+                                <td>CO2 Emissions (kg)</td>
+                                <td id="your-emission">0</td>
+                                <td>704</td>
+                                <td id="emission-diff">0</td>
+                                <td><span class="badge" id="emission-impact">Level</span></td>
+                            </tr>
+                            <tr>
+                                <td>Cost (EUR)</td>
+                                <td id="your-cost">0</td>
+                                <td>438</td>
+                                <td id="cost-diff">0</td>
+                                <td><span class="badge" id="cost-impact">Level</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="tab-content" id="recommendations-tab">
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">Optimization Recommendations</h3>
+                    <div class="recommendations" id="recommendations-list">
+                        <!-- Recommendations will be added here dynamically -->
+                    </div>
+
+                    <button class="btn" id="optimize-btn" style="margin-top: 20px;">
+                        <i class="fas fa-magic"></i> Find Optimal Solution
+                    </button>
+
+                    <div class="spinner" id="optimize-spinner" style="display: none;"></div>
+
+                    <div id="optimization-results" style="display: none; margin-top: 20px;">
+                        <h4 style="color: var(--primary); margin-bottom: 15px;">Optimal Solution Found</h4>
+                        <div id="optimization-details"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Green Pulse</h3>
+                <p>We provide intelligent energy solutions powered by AI to help businesses reduce their environmental impact while optimizing costs.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <p><a href="#" style="color: white; text-decoration: none;">Home</a></p>
+                <p><a href="#" style="color: white; text-decoration: none;">Analysis</a></p>
+                <p><a href="#" style="color: white; text-decoration: none;">Solutions</a></p>
+                <p><a href="#" style="color: white; text-decoration: none;">Contact</a></p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> info@greenpulse.com</p>
+                <p><i class="fas fa-phone"></i> +33 1 23 45 67 89</p>
+
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            &copy; 2023 Green Pulse. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Set current date
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('fr-FR');
+
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+
+        // Form submission
+        document.getElementById('energy-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Show loading spinner
+            document.getElementById('loading-spinner').style.display = 'block';
+            document.getElementById('analyze-btn').disabled = true;
+
+            // Get form values
+            const energyType = document.getElementById('energy-type').value;
+            const equipmentType = document.getElementById('equipment-type').value;
+            const lifetime = parseFloat(document.getElementById('lifetime').value);
+
+            // Simulate API call (in a real app, this would be an actual API call)
+            setTimeout(() => {
+                // Calculate results (mocking your Python calculations)
+                const results = calculateEnergyResults(energyType, equipmentType, lifetime);
+
+                // Display results
+                displayResults(results, energyType, equipmentType, lifetime);
+
+                // Hide loading spinner
+                document.getElementById('loading-spinner').style.display = 'none';
+                document.getElementById('analyze-btn').disabled = false;
+            }, 1500);
+        });
+
+        // Optimization button
+        document.getElementById('optimize-btn').addEventListener('click', function() {
+            const energyType = document.getElementById('energy-type').value;
+            const equipmentType = document.getElementById('equipment-type').value;
+            const lifetime = parseFloat(document.getElementById('lifetime').value);
+
+            // Show loading spinner
+            document.getElementById('optimize-spinner').style.display = 'block';
+            this.disabled = true;
+
+            // Simulate optimization (in a real app, this would be an actual API call)
+            setTimeout(() => {
+                const optimization = findOptimalSolution(energyType, equipmentType, lifetime);
+                displayOptimizationResults(optimization);
+
+                // Hide loading spinner
+                document.getElementById('optimize-spinner').style.display = 'none';
+                this.disabled = false;
+            }, 2000);
+        });
+
+        // Mock calculation function (replace with actual API calls to your Python backend)
+        function calculateEnergyResults(energyType, equipmentType, lifetime) {
+            // These factors should match your Python implementation
+            const energyFactors = {
+                'Fioul': { consumption: 1.2, emission: 0.25 },
+                'Gaz': { consumption: 1.0, emission: 0.15 },
+                'Electricité': { consumption: 0.8, emission: 0.10 },
+                'Solaire': { consumption: 0.5, emission: 0.02 }
+            };
+
+            const equipmentImpact = {
+                'Production': 1.0,
+                'Transformation': 0.9,
+                'Refrigeration': 0.8,
+                'Conditionnement': 0.6,
+                'Nettoyage': 0.4,
+                'Controle Qualite': 0.3
+            };
+
+            // Base calculation (similar to your Python code)
+            const base = 3000;
+            const energyFactor = energyFactors[energyType].consumption;
+            const equipmentFactor = equipmentImpact[equipmentType];
+            const ageFactor = 1 + (lifetime * 0.02);
+
+            const consumption = base * energyFactor * equipmentFactor * ageFactor;
+            const emission = consumption * energyFactors[energyType].emission * equipmentFactor;
+            const cost = consumption * 0.15;
+
+            return {
+                kwh: consumption,
+                co2: emission,
+                cost: cost,
+                energyType: energyType,
+                equipmentType: equipmentType,
+                lifetime: lifetime
+            };
+        }
+
+        // Display results
+        function displayResults(results, energyType, equipmentType, lifetime) {
+            // Show results section
+            document.getElementById('results-section').style.display = 'block';
+
+            // Update result values
+            document.getElementById('consumption-value').textContent = results.kwh.toFixed(2);
+            document.getElementById('emission-value').textContent = results.co2.toFixed(2);
+            document.getElementById('cost-value').textContent = results.cost.toFixed(2);
+
+            // Update comparison table
+            document.getElementById('your-consumption').textContent = results.kwh.toFixed(2);
+            document.getElementById('your-emission').textContent = results.co2.toFixed(2);
+            document.getElementById('your-cost').textContent = results.cost.toFixed(2);
+
+            // Calculate differences
+            const consumptionDiff = results.kwh - 2920;
+            const emissionDiff = results.co2 - 704;
+            const costDiff = results.cost - 438;
+
+            document.getElementById('consumption-diff').textContent = consumptionDiff.toFixed(2);
+            document.getElementById('emission-diff').textContent = emissionDiff.toFixed(2);
+            document.getElementById('cost-diff').textContent = costDiff.toFixed(2);
+
+            // Set impact levels
+            setImpactLevel('consumption', results.kwh, 2000, 3500);
+            setImpactLevel('emission', results.co2, 300, 500);
+            setImpactLevel('cost', results.cost, 300, 500);
+
+            // Create charts
+            createConsumptionChart(results);
+            createImpactChart(results, energyType);
+            createComparisonChart(results);
+
+            // Generate recommendations
+            generateRecommendations(results, energyType, equipmentType);
+
+            // Scroll to results
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Set impact level badges
+        function setImpactLevel(type, value, low, high) {
+            const badge = document.getElementById(`${type}-badge`);
+            const impactBadge = document.getElementById(`${type}-impact`);
+
+            if (value < low) {
+                badge.textContent = 'LOW';
+                badge.className = 'badge badge-success';
+                impactBadge.textContent = 'LOW';
+                impactBadge.className = 'badge badge-success';
+            } else if (value < high) {
+                badge.textContent = 'MODERATE';
+                badge.className = 'badge badge-warning';
+                impactBadge.textContent = 'MODERATE';
+                impactBadge.className = 'badge badge-warning';
+            } else {
+                badge.textContent = 'HIGH';
+                badge.className = 'badge badge-danger';
+                impactBadge.textContent = 'HIGH';
+                impactBadge.className = 'badge badge-danger';
+            }
+        }
+
+        // Create consumption chart
+        function createConsumptionChart(results) {
+            const ctx = document.getElementById('consumption-chart').getContext('2d');
+
+            if (window.consumptionChart) {
+                window.consumptionChart.destroy();
+            }
+
+            window.consumptionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Consumption (kWh)', 'CO2 Emissions (kg)', 'Cost (EUR)'],
+                    datasets: [{
+                        label: 'Your Results',
+                        data: [results.kwh, results.co2, results.cost],
+                        backgroundColor: [
+                            'rgba(255, 165, 0, 0.7)',
+                            'rgba(255, 69, 0, 0.7)',
+                            'rgba(65, 105, 225, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 165, 0, 1)',
+                            'rgba(255, 69, 0, 1)',
+                            'rgba(65, 105, 225, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Energy Consumption Analysis',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Create impact chart
+        function createImpactChart(results, energyType) {
+            const energyColors = {
+                'Fioul': 'rgb(139, 69, 19)',
+                'Gaz': 'rgb(255, 165, 0)',
+                'Electricité': 'rgb(255, 255, 0)',
+                'Solaire': 'rgb(255, 215, 0)'
+            };
+
+            const data = [{
+                values: [results.kwh, 3000],
+                labels: ['Your consumption', 'Average'],
+                marker: {
+                    colors: [energyColors[energyType], 'lightgray']
+                },
+                type: 'pie',
+                textinfo: 'label+percent',
+                insidetextorientation: 'radial'
+            }];
+
+            const layout = {
+                title: 'Comparison with Average Consumption',
+                height: 400,
+                showlegend: false
+            };
+
+            Plotly.newPlot('impact-chart', data, layout);
+        }
+
+        // Create comparison chart
+        function createComparisonChart(results) {
+            const ctx = document.getElementById('comparison-chart').getContext('2d');
+
+            if (window.comparisonChart) {
+                window.comparisonChart.destroy();
+            }
+
+            window.comparisonChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Consumption (kWh)', 'CO2 Emissions (kg)', 'Cost (EUR)'],
+                    datasets: [
+                        {
+                            label: 'Your Installation',
+                            data: [results.kwh, results.co2, results.cost],
+                            backgroundColor: 'rgba(0, 105, 92, 0.7)',
+                            borderColor: 'rgba(0, 105, 92, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Sector Average',
+                            data: [2920, 704, 438],
+                            backgroundColor: 'rgba(139, 195, 74, 0.7)',
+                            borderColor: 'rgba(139, 195, 74, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Comparison with Sector Averages',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generate recommendations
+        function generateRecommendations(results, energyType, equipmentType) {
+            const recommendationsList = document.getElementById('recommendations-list');
+            recommendationsList.innerHTML = '';
+
+            let recommendations = [];
+
+            if (energyType === 'Fioul') {
+                recommendations.push("Consider switching to a less polluting energy source like Gaz or Electricité to reduce your carbon footprint by 30-50%.");
+            } else if (energyType === 'Gaz') {
+                recommendations.push("To further reduce your impact, consider renewable energies like Solaire which could decrease your emissions by 60%.");
+            }
+
+            if (equipmentType === 'Production' || equipmentType === 'Transformation') {
+                recommendations.push("Optimize your production processes with more efficient technologies. Modernization could reduce your consumption by 15-25%.");
+            } else if (equipmentType === 'Refrigeration') {
+                recommendations.push("Modern high-efficiency refrigeration systems could reduce your consumption by 20-30%.");
+            }
+
+            if (results.kwh > 3500) {
+                recommendations.push(`Your consumption is high (${results.kwh.toFixed(2)} kWh). A complete energy audit is recommended to identify savings opportunities.`);
+            } else if (results.kwh < 2000) {
+                recommendations.push("Good energy performance. Maintain your best practices and consider energy certifications.");
+            }
+
+            recommendations.push("Contact a Green Pulse expert for a more detailed analysis and customized solutions.");
+
+            // Add recommendations to the list
+            recommendations.forEach((rec, index) => {
+                const recElement = document.createElement('div');
+                recElement.className = 'recommendation animated';
+                recElement.style.animationDelay = `${index * 0.1}s`;
+
+                recElement.innerHTML = `
+                    <div class="recommendation-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="recommendation-content">
+                        <h4>Recommendation ${index + 1}</h4>
+                        <p>${rec}</p>
+                    </div>
+                `;
+
+                recommendationsList.appendChild(recElement);
+            });
+        }
+
+        // Find optimal solution
+        function findOptimalSolution(currentEnergy, equipmentType, lifetime) {
+            const energyTypes = ['Fioul', 'Gaz', 'Electricité', 'Solaire'];
+            let bestEnergy = null;
+            let bestScore = Infinity;
+            let bestResult = null;
+
+            // Evaluate all energy types
+            energyTypes.forEach(energy => {
+                if (energy === currentEnergy) return;
+
+                const results = calculateEnergyResults(energy, equipmentType, lifetime);
+                const score = results.co2 * 0.6 + results.cost * 0.4; // Weighted score
+
+                if (score < bestScore) {
+                    bestScore = score;
+                    bestEnergy = energy;
+                    bestResult = results;
+                }
+            });
+
+            // Calculate current results for comparison
+            const currentResults = calculateEnergyResults(currentEnergy, equipmentType, lifetime);
+
+            return {
+                bestEnergy,
+                bestResult,
+                currentResults
+            };
+        }
+
+        // Display optimization results
+        function displayOptimizationResults(optimization) {
+            const optimizationDetails = document.getElementById('optimization-details');
+            const current = optimization.currentResults;
+            const best = optimization.bestResult;
+
+            const consumptionReduction = current.kwh - best.kwh;
+            const consumptionReductionPct = (consumptionReduction / current.kwh * 100).toFixed(1);
+
+            const emissionReduction = current.co2 - best.co2;
+            const emissionReductionPct = (emissionReduction / current.co2 * 100).toFixed(1);
+
+            const costSaving = current.cost - best.cost;
+            const costSavingPct = (costSaving / current.cost * 100).toFixed(1);
+
+            optimizationDetails.innerHTML = `
+                <div style="margin-bottom: 15px;">
+                    <p><strong>Recommended Energy Type:</strong> ${optimization.bestEnergy}</p>
+                </div>
+
+                <div class="result-grid" style="margin-bottom: 20px;">
+                    <div class="result-item">
+                        <i class="fas fa-bolt" style="font-size: 24px; color: var(--accent);"></i>
+                        <div class="result-value" style="font-size: 24px;">${consumptionReduction.toFixed(2)} kWh</div>
+                        <div class="result-label">Reduction (${consumptionReductionPct}%)</div>
+                    </div>
+
+                    <div class="result-item">
+                        <i class="fas fa-cloud" style="font-size: 24px; color: var(--info);"></i>
+                        <div class="result-value" style="font-size: 24px;">${emissionReduction.toFixed(2)} kg</div>
+                        <div class="result-label">Reduction (${emissionReductionPct}%)</div>
+                    </div>
+
+                    <div class="result-item">
+                        <i class="fas fa-euro-sign" style="font-size: 24px; color: var(--success);"></i>
+                        <div class="result-value" style="font-size: 24px;">${costSaving.toFixed(2)} EUR</div>
+                        <div class="result-label">Savings (${costSavingPct}%)</div>
+                    </div>
+                </div>
+
+                <div style="background-color: #f5f5f5; padding: 15px; border-radius: 4px;">
+                    <p><strong>Implementation Note:</strong> Switching to ${optimization.bestEnergy} would require an initial investment but would pay for itself in approximately ${Math.round(10000 / costSaving)} months based on your current consumption.</p>
+                </div>
+            `;
+
+            document.getElementById('optimization-results').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
