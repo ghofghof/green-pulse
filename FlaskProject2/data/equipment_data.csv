@@ -1,0 +1,4 @@
+Equipment_ID,Equipment_Name,Supplier_Name,kWh,Puissance_max,CO2_kg,Intensité_carbone
+E001,Machine A,Supplier X,850,800,450,0.7
+E002,Machine B,Supplier Y,1200,1100,600,0.9
+E003,Machine C,Supplier Z,950,850,480,0.75

@@ -1,0 +1,16 @@
+[
+    {
+        "Categorie": "Énergie",
+        "Sous-categorie": "Consommation électrique",
+        "Model_input": "problème surconsommation électrique",
+        "Indicateurs": ["kWh", "Puissance_max"],
+        "Seuils": {"kWh": ">1000", "Puissance_max": ">900"}
+    },
+    {
+        "Categorie": "Émissions",
+        "Sous-categorie": "CO2",
+        "Model_input": "émissions carbone excessives",
+        "Indicateurs": ["CO2_kg", "Intensité_carbone"],
+        "Seuils": {"CO2_kg": ">500", "Intensité_carbone": ">0.8"}
+    }
+]

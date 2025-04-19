@@ -73,6 +73,7 @@
       <updated>1745066086397</updated>
       <workItem from="1745066087490" duration="6945000" />
       <workItem from="1745075025253" duration="382000" />
+      <workItem from="1745085539753" duration="326000" />
     </task>
     <servers />
   </component>
@@ -80,6 +81,6 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/FlaskProject2$FlaskProject2.coverage" NAME="FlaskProject2 Coverage Results" MODIFIED="1745075218104" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FlaskProject2$FlaskProject2.coverage" NAME="FlaskProject2 Coverage Results" MODIFIED="1745085549681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
