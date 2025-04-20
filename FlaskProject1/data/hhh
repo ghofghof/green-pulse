@@ -1,0 +1,510 @@
+[    {
+      "Categorie": "Equipement",
+      "Sous-categorie": "Fioul",
+      "Indicateurs": ["CO2_Emissions_kg_equipment", "Energy_Consumption_kWh"],
+      "Seuils": {
+        "CO2_Emissions_kg_equipment": "> P95",
+        "Energy_Consumption_kWh": "> P90"
+      },
+      "Actions": [
+        "Conversion to green electricity",
+        "Combustion optimization",
+        "Installation of heat recovery systems",
+        "Prioritized urgent replacement"
+      ],
+      "Model_input": "high consumption oil equipment"
+    },
+    {
+      "Categorie": "Equipement",
+      "Sous-categorie": "Gaz",
+      "Indicateurs": ["CO2_Emissions_kg_equipment", "Temperature"],
+      "Seuils": {
+        "CO2_Emissions_kg_equipment": "> P90",
+        "Temperature": "> P90 (oversized)"
+      },
+      "Actions": [
+        "Smart temperature control",
+        "Network insulation",
+        "Connected thermostats",
+        "Partial biogas conversion"
+      ],
+      "Model_input": "gas equipment overconsumption"
+    },
+    {
+      "Categorie": "Processus",
+      "Sous-categorie": "Conditionnement",
+      "Indicateurs": ["Energy_Consumption_kWh", "Water_Consumption_PerUnit_L"],
+      "Seuils": {
+        "Energy_Consumption_kWh": "> P85",
+        "Water_Consumption_PerUnit_L": "> P75"
+      },
+      "Actions": [
+        "Pace optimization",
+        "Dry cleaning",
+        "Recycling of defective packaging",
+        "Automation of controls"
+      ],
+      "Model_input": "packaging process resources"
+    },
+    {
+      "Categorie": "Processus",
+      "Sous-categorie": "Contrôle Qualité",
+      "Indicateurs": ["Blocked_stock", "CO2_Emissions_kg_equipment"],
+      "Seuils": {
+        "Blocked_stock": "> 5% of total",
+        "CO2_Emissions_kg_equipment": "> P80"
+      },
+      "Actions": [
+        "Non-destructive testing",
+        "Optimized sampling",
+        "Inline sensors",
+        "AI for automatic sorting"
+      ],
+      "Model_input": "quality control process waste"
+    },
+    {
+      "Categorie": "Processus",
+      "Sous-categorie": "Nettoyage",
+      "Indicateurs": ["Water_Consumption_PerUnit_L", "Energy_Consumption_kWh"],
+      "Seuils": {
+        "Water_Consumption_PerUnit_L": "> 2x reference",
+        "Energy_Consumption_kWh": "> P90"
+      },
+      "Actions": [
+        "Enzymatic cleaning",
+        "Effluent recycling",
+        "CIP cycle optimization",
+        "Operator training"
+      ],
+      "Model_input": "intensive cleaning process"
+    },
+    {
+      "Categorie": "Processus",
+      "Sous-categorie": "Transformation",
+      "Indicateurs": ["CO2_Emissions_kg_equipment", "Temperature"],
+      "Seuils": {
+        "CO2_Emissions_kg_equipment": "> P95",
+        "Temperature": "> P90 (variances)"
+      },
+      "Actions": [
+        "Waste heat recovery",
+        "Preheating with exchangers",
+        "Parameter optimization",
+        "Oven/boiler maintenance"
+      ],
+      "Model_input": "energy-intensive transformation process"
+    },
+    {
+      "Categorie": "Processus",
+      "Sous-categorie": "Réfrigération",
+      "Indicateurs": ["Energy_Consumption_kWh", "Humidity"],
+      "Seuils": {
+        "Energy_Consumption_kWh": "> P95",
+        "Humidity": "< P10 (too dry)"
+      },
+      "Actions": [
+        "Time slot optimization",
+        "Humidity control",
+        "Automatic doors",
+        "High-efficiency compressors"
+      ],
+      "Model_input": "refrigeration process humidity"
+    },
+    {
+      "Categorie": "Produit",
+      "Sous-categorie": "Produit laitier",
+      "Indicateurs": ["Carbon_Foot_Print_per_Unit_kgCo2", "Transport_Distance_Km"],
+      "Seuils": {
+        "Carbon_Foot_Print_per_Unit_kgCo2": "> P90",
+        "Transport_Distance_Km": "> 200km"
+      },
+      "Actions": [
+        "Supply localization",
+        "Recipe optimization",
+        "Co-product valorization",
+        "Biodegradable packaging"
+      ],
+      "Model_input": "dairy product high footprint"
+    },
+    {
+      "Categorie": "Produit",
+      "Sous-categorie": "Ingrédient",
+      "Indicateurs": ["Water_Consumption_PerUnit_L", "Recycled_Packaging"],
+      "Seuils": {
+        "Water_Consumption_PerUnit_L": "> P90",
+        "Recycled_Packaging": "== No"
+      },
+      "Actions": [
+        "Ingredient concentration",
+        "Bulk packaging",
+        "Certified suppliers",
+        "Dosage optimization"
+      ],
+      "Model_input": "ingredient water packaging"
+    },
+    {
+      "Categorie": "Energie",
+      "Sous-categorie": "Solaire",
+      "Indicateurs": ["Renewable_Energy_Percentage", "Energy_Consumption_kWh"],
+      "Seuils": {
+        "Renewable_Energy_Percentage": "< P10",
+        "Energy_Consumption_kWh": "> P90"
+      },
+      "Actions": [
+        "Installation of additional panels",
+        "Solar PPA contracts",
+        "Battery storage",
+        "Self-consumption optimization"
+      ],
+      "Model_input": "solar energy untapped potential"
+    },
+    {
+      "Categorie": "Energie",
+      "Sous-categorie": "Electricité",
+      "Indicateurs": ["Energy_Consumption_kWh", "CO2_Ambient_Level"],
+      "Seuils": {
+        "Energy_Consumption_kWh": "> P90",
+        "CO2_Ambient_Level": "> 500ppm"
+      },
+      "Actions": [
+        "Peak consumption audit",
+        "Shifting energy-intensive operations",
+        "Frequency variators",
+        "LED and high-efficiency motors"
+      ],
+      "Model_input": "electricity peak optimization"
+    },
+    {
+      "Categorie": "Scope1",
+      "Sous-categorie": "Combustion_fixe",
+      "Indicateurs": ["CO2_Emissions_kg_equipment", "Energy_Consumption_kWh"],
+      "Seuils": {
+        "CO2_Emissions_kg_equipment": "> 100kg/h",
+        "Energy_Consumption_kWh": "> P95"
+      },
+      "Actions": [
+        "Replacing oil/gas boilers with biomass",
+        "Installation of heat recovery systems",
+        "Combustion parameter optimization",
+        "Continuous emission monitoring"
+      ],
+      "Model_input": "scope1 fixed combustion boiler"
+    },
+    {
+      "Categorie": "Scope1",
+      "Sous-categorie": "Fugitives",
+      "Indicateurs": ["CO2_Ambient_Level", "Temperature"],
+      "Seuils": {
+        "CO2_Ambient_Level": "> 800ppm",
+        "Temperature": "< -10°C (possible leak)"
+      },
+      "Actions": [
+        "Infrared camera detection",
+        "Replacement of HFC refrigerants",
+        "Preventive circuit maintenance",
+        "Gas handling training"
+      ],
+      "Model_input": "scope1 refrigerant gas leak"
+    },
+    {
+      "Categorie": "Scope2",
+      "Sous-categorie": "Electricite_achetee",
+      "Indicateurs": ["Energy_Consumption_kWh", "Renewable_Energy_Percentage"],
+      "Seuils": {
+        "Energy_Consumption_kWh": "> P90",
+        "Renewable_Energy_Percentage": "< 20%"
+      },
+      "Actions": [
+        "Green energy contract negotiation",
+        "Photovoltaic panel installation",
+        "Energy monitoring system",
+        "Shifting energy-intensive operations to off-peak hours"
+      ],
+      "Model_input": "scope2 grey electricity"
+    },
+    {
+      "Categorie": "Scope2",
+      "Sous-categorie": "Vapeur_chauffage",
+      "Indicateurs": ["Energy_Consumption_kWh", "Temperature"],
+      "Seuils": {
+        "Energy_Consumption_kWh": "> 500kWh/day",
+        "Temperature": "> 120°C (oversized)"
+      },
+      "Actions": [
+        "Steam network insulation",
+        "Condensate recovery",
+        "Pressure/temperature optimization",
+        "Steam leak sensors"
+      ],
+      "Model_input": "scope2 steam energy losses"
+    },
+    {
+      "Categorie": "Scope3",
+      "Sous-categorie": "Achats_matieres",
+      "Indicateurs": ["Carbon_Foot_Print_per_Unit_kgCo2", "Recycled_Packaging"],
+      "Seuils": {
+        "Carbon_Foot_Print_per_Unit_kgCo2": "> P90",
+        "Recycled_Packaging": "== No"
+      },
+      "Actions": [
+        "Low-carbon supplier audit",
+        "Environmental specifications in tenders",
+        "Local sourcing",
+        "Formulation optimization"
+      ],
+      "Model_input": "scope3 raw material purchases"
+    },
+    {
+      "Categorie": "Scope3",
+      "Sous-categorie": "Transport_amont",
+      "Indicateurs": ["Transport_Distance_Km", "Transport_Type"],
+      "Seuils": {
+        "Transport_Distance_Km": "> 500km",
+        "Transport_Type": "== Air/Maritime"
+      },
+      "Actions": [
+        "Modal shift to rail",
+        "Delivery schedule optimization",
+        "Load consolidation",
+        "Shared logistics collaboration"
+      ],
+      "Model_input": "scope3 inbound transport"
+    },
+    {
+      "Categorie": "Scope3",
+      "Sous-categorie": "Dechets",
+      "Indicateurs": ["Blocked_stock", "Water_Consumption_PerUnit_L"],
+      "Seuils": {
+        "Blocked_stock": "> 5% of total",
+        "Water_Consumption_PerUnit_L": "> P90"
+      },
+      "Actions": [
+        "Organic matter valorization (methanization)",
+        "Partnership with recycling channels",
+        "Process optimization to reduce waste",
+        "Source sorting training"
+      ],
+      "Model_input": "scope3 waste management"
+    },
+    {
+      "Categorie": "Scope3",
+      "Sous-categorie": "Transport_avals",
+      "Indicateurs": ["Carbon_Foot_Print_per_Unit_kgCo2", "Supplier_Name"],
+      "Seuils": {
+        "Carbon_Foot_Print_per_Unit_kgCo2": "> P90",
+        "Supplier_Name": "== Without environmental certification"
+      },
+      "Actions": [
+        "Distribution network optimization",
+        "Electric/bike delivery fleet",
+        "Returnable packaging",
+        "CO2 calculation integrated in quotes"
+      ],
+      "Model_input": "scope3 outbound logistics"
+    },
+    {
+      "Categorie": "Scope3",
+      "Sous-categorie": "Utilisation_produits",
+      "Indicateurs": ["Material_name", "Estimated_Lifetime_Years"],
+      "Seuils": {
+        "Material_name": "== Perishable product",
+        "Estimated_Lifetime_Years": "< 1 year"
+      },
+      "Actions": [
+        "Product eco-design",
+        "Consumer information on preservation",
+        "Shelf life optimization",
+        "Packaging circularity"
+      ],
+      "Model_input": "scope3 product end of life"
+    },
+    {
+      "Categorie": "Fournisseur",
+      "Sous-categorie": "Sustainability_Score",
+      "Indicateurs": ["Transport_CO2", "Carbon_Foot_Print_per_Unit_kgCo2", "CO2_Ambient_Level"],
+      "Seuils": {
+        "Transport_CO2": "> 300",
+        "Supplier_Sustainability_Score": "< 50"
+      },
+      "Actions": [
+        "Optimize transport modes (rail/maritime)",
+        "Choose certified suppliers",
+        "Include environmental clauses in contracts",
+        "Regularly assess environmental performance"
+      ],
+      "Model_input": "supplier high CO2 transport impact"
+    },
+    {
+      "Categorie": "Performance",
+      "Sous-categorie": "CO2_Par_kW",
+      "Indicateurs": ["CO2_Emissions_kg_equipment", "Energy_Consumption_kWh"],
+      "Seuils": {
+        "CO2_kg_per_kWh": "> 0.5"
+      },
+      "Actions": [
+        "Improve energy efficiency",
+        "Replace old equipment",
+        "Add frequency variators",
+        "Invest in heat recovery"
+      ],
+      "Model_input": "high CO2 per kWh"
+    },
+    {
+      "Categorie": "Produit",
+      "Sous-categorie": "CO2_Matériel",
+      "Indicateurs": ["Carbon_Foot_Print_per_Unit_kgCo2", "Total_Stock"],
+      "Seuils": {
+        "CO2_Emissions_Per_Unit_Material_kg": "> 1.5"
+      },
+      "Actions": [
+        "Change material supplier",
+        "Use recycled materials",
+        "Evaluate low-carbon substitutes"
+      ],
+      "Model_input": "material CO2 too high"
+    },
+    {
+      "Categorie": "Eau",
+      "Sous-categorie": "Consommation_matière",
+      "Indicateurs": ["Water_Consumption_PerUnit_L", "Total_Stock"],
+      "Seuils": {
+        "Water_Consumption_Per_Unit_Material": "> 1.0"
+      },
+      "Actions": [
+        "Change washing process",
+        "Reuse wastewater",
+        "Reduce material losses"
+      ],
+      "Model_input": "raw material water overconsumption"
+    },
+    {
+      "Categorie": "Réglementation",
+      "Sous-categorie": "Quota_CO2",
+      "Indicateurs": ["Total_CO2_kg", "Quota"],
+      "Seuils": {
+        "Quota_Impact_Pourcentage": "> 100"
+      },
+      "Actions": [
+        "Temporarily stop energy-intensive lines",
+        "Buy carbon credits (offset)",
+        "Revise energy mix",
+        "Automate real-time monitoring"
+      ],
+      "Model_input": "regulatory CO2 quota exceeded"
+    },
+    {
+      "Categorie": "Stock",
+      "Sous-categorie": "Surstockage",
+      "Indicateurs": ["Blocked_stock", "Total_Stock"],
+      "Seuils": {
+        "Blocked_stock": "> 10% of Total_Stock"
+      },
+      "Actions": [
+        "Reduce supply cycles",
+        "Improve demand forecasting",
+        "Identify slow-moving materials"
+      ],
+      "Model_input": "excessive stock waste CO2"
+    },
+    {
+      "Categorie": "Environnement",
+      "Sous-categorie": "Conditions_ambientes_extremes",
+      "Indicateurs": ["Temperature", "Humidity"],
+      "Seuils": {
+        "Temperature": "< 5°C or > 35°C",
+        "Humidity": "< 20% or > 80%"
+      },
+      "Actions": [
+        "Install smart ambient monitoring",
+        "Thermally insulate critical areas",
+        "Avoid critical time slots for production"
+      ],
+      "Model_input": "extreme ambient conditions energy"
+    },
+    {
+      "Categorie": "Performance",
+      "Sous-categorie": "Efficacité_globale_basse",
+      "Indicateurs": ["CO2_kg_per_kWh", "Renewable_Energy_Percentage"],
+      "Seuils": {
+        "CO2_kg_per_kWh": "> 0.6",
+        "Renewable_Energy_Percentage": "< 20%"
+      },
+      "Actions": [
+        "Conduct global energy audit",
+        "Reallocate production to more efficient lines",
+        "Simulate impact of renewable energy mix"
+      ],
+      "Model_input": "low global energy efficiency"
+    },
+    {
+      "Categorie": "Transport",
+      "Sous-categorie": "Distance_non_optimisée",
+      "Indicateurs": ["Transport_Distance_Km", "Transport_CO2"],
+      "Seuils": {
+        "Transport_Distance_Km": "> 800",
+        "Transport_CO2": "> 300"
+      },
+      "Actions": [
+        "Identify critical logistics points",
+        "Review supply chain",
+        "Favor local suppliers"
+      ],
+      "Model_input": "long transport high CO2"
+    },
+    {
+      "Categorie": "Produit",
+      "Sous-categorie": "Non_recyclé",
+      "Indicateurs": ["Recycled_Packaging"],
+      "Seuils": {
+        "Recycled_Packaging": "== No"
+      },
+      "Actions": [
+        "Choose circular packaging",
+        "Evaluate recyclable alternatives",
+        "Internal standards for eco-design"
+      ],
+      "Model_input": "non-recycled packaging"
+    },
+    {
+      "Categorie": "Maintenance",
+      "Sous-categorie": "Notifications_fréquentes",
+      "Indicateurs": ["Fk_Date_Creation_Notification", "Fk_Equipment"],
+      "Seuils": {
+        "Notifications_par_mois": "> 5"
+      },
+      "Actions": [
+        "In-depth inspection of concerned lines",
+        "Advanced preventive maintenance planning",
+        "Root cause analysis of failures"
+      ],
+      "Model_input": "too frequent maintenance"
+    },
+    {
+      "Categorie": "Environnement",
+      "Sous-categorie": "Eau_par_unité",
+      "Indicateurs": ["Water_Consumption_PerUnit_L"],
+      "Seuils": {
+        "Water_Consumption_PerUnit_L": "> 1.5"
+      },
+      "Actions": [
+        "Audit cleaning cycles",
+        "Use low-flow nozzles",
+        "Internal water recycling"
+      ],
+      "Model_input": "excessive water consumption per unit"
+    },
+    {
+      "Categorie": "Fournisseur",
+      "Sous-categorie": "Score_faible",
+      "Indicateurs": ["Supplier_Sustainability_Score"],
+      "Seuils": {
+        "Supplier_Sustainability_Score": "< 40"
+      },
+      "Actions": [
+        "Implement quarterly evaluation",
+        "Request improvement plan from supplier",
+        "Look for more sustainable local alternatives"
+      ],
+      "Model_input": "supplier low environmental score"
+    }
+  ]

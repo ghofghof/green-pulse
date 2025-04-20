@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Résultats pour : "{{ query }}"</h2>
+
+    <section class="results-section">
+        <h3>Recommandations expertes</h3>
+        <div class="llm-response">{{ llm_response|replace('\n', '<br>')|safe }}</div>
+    </section>
+
+    {% if problem %}
+    <section class="results-section">
+        <h3>Anomalies détectées</h3>
+        <p><strong>Catégorie :</strong> {{ problem.Categorie }} / {{ problem['Sous-categorie'] }}</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Équipement</th>
+                    <th>Fournisseur</th>
+                    {% for indicator in problem.Indicateurs %}
+                        <th>{{ indicator }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in anomalies %}
+                <tr>
+                    <td>{{ item.Equipment_Name }} ({{ item.Equipment_ID }})</td>
+                    <td>{{ item.Supplier_Name }}</td>
+                    {% for indicator in problem.Indicateurs %}
+                        <td>{{ item[indicator] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% endif %}
+
+    <a href="{{ url_for('home') }}" class="btn">Nouvelle analyse</a>
+{% endblock %}

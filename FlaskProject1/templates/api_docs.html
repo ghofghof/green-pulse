@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Documentation de l'API</h2>
+
+    <section>
+        <h3>Endpoint d'analyse</h3>
+        <pre>POST /api/v1/analyze</pre>
+
+        <h4>Paramètres</h4>
+        <pre>{
+    "query": "Votre description de problème"
+}</pre>
+
+        <h4>Exemple de requête</h4>
+        <div class="api-test">
+            <form id="api-test-form">
+                <input type="text" id="api-query" placeholder="Entrez une requête de test">
+                <button type="submit" class="btn">Tester</button>
+            </form>
+            <pre id="api-response">Les résultats apparaîtront ici...</pre>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Industrial Problem Analysis</h2>
+    
+    {% if error %}
+        <div class="alert alert-error">{{ error }}</div>
+    {% endif %}
+    
+    <form id="query-form" method="POST">
+        <textarea 
+            id="query-input" 
+            name="query" 
+            placeholder="Décrivez votre problème industriel (ex: 'surconsommation électrique sur la ligne 5')"
+            required></textarea>
+        
+        <button type="submit" id="submit-btn" class="btn">
+            Analyser le problème
+        </button>
+    </form>
+    
+    <div class="api-docs-link">
+        <a href="{{ url_for('api_docs') }}">Consulter la documentation API</a>
+    </div>
+{% endblock %}

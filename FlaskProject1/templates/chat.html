@@ -1,0 +1,646 @@
+{#<!DOCTYPE html>#}
+{#<html lang="fr">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Chatbot Extraordinaire</title>#}
+{#    <style>#}
+{#        * {#}
+{#            margin: 0;#}
+{#            padding: 0;#}
+{#            box-sizing: border-box;#}
+{#            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;#}
+{#        }#}
+{##}
+{#        body {#}
+{#            background-color: #f5f5f5;#}
+{#            height: 100vh;#}
+{#            display: flex;#}
+{#            flex-direction: column;#}
+{#        }#}
+{##}
+{#        .chat-container {#}
+{#            max-width: 800px;#}
+{#            width: 100%;#}
+{#            height: 80vh;#}
+{#            margin: 20px auto;#}
+{#            background-color: white;#}
+{#            border-radius: 15px;#}
+{#            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);#}
+{#            display: flex;#}
+{#            flex-direction: column;#}
+{#            overflow: hidden;#}
+{#        }#}
+{##}
+{#        .chat-header {#}
+{#            background: linear-gradient(135deg, #6e8efb, #a777e3);#}
+{#            color: white;#}
+{#            padding: 15px 20px;#}
+{#            text-align: center;#}
+{#            font-size: 1.2rem;#}
+{#            font-weight: bold;#}
+{#        }#}
+{##}
+{#        .chat-messages {#}
+{#            flex: 1;#}
+{#            padding: 20px;#}
+{#            overflow-y: auto;#}
+{#            display: flex;#}
+{#            flex-direction: column;#}
+{#            gap: 15px;#}
+{#        }#}
+{##}
+{#        .message {#}
+{#            max-width: 70%;#}
+{#            padding: 12px 15px;#}
+{#            border-radius: 18px;#}
+{#            line-height: 1.4;#}
+{#            position: relative;#}
+{#            word-wrap: break-word;#}
+{#        }#}
+{##}
+{#        .bot-message {#}
+{#            align-self: flex-start;#}
+{#            background-color: #ffffff;#}
+{#            color: #333;#}
+{#            border: 1px solid #e0e0e0;#}
+{#            border-top-left-radius: 5px;#}
+{#        }#}
+{##}
+{#        .user-message {#}
+{#            align-self: flex-end;#}
+{#            background: linear-gradient(135deg, #6e8efb, #a777e3);#}
+{#            color: white;#}
+{#            border-top-right-radius: 5px;#}
+{#        }#}
+{##}
+{#        .chat-input {#}
+{#            display: flex;#}
+{#            padding: 15px;#}
+{#            background-color: #f9f9f9;#}
+{#            border-top: 1px solid #eee;#}
+{#        }#}
+{##}
+{#        #user-input {#}
+{#            flex: 1;#}
+{#            padding: 12px 15px;#}
+{#            border: 1px solid #ddd;#}
+{#            border-radius: 25px;#}
+{#            outline: none;#}
+{#            font-size: 1rem;#}
+{#            transition: border 0.3s;#}
+{#        }#}
+{##}
+{#        #user-input:focus {#}
+{#            border-color: #a777e3;#}
+{#        }#}
+{##}
+{#        #send-button {#}
+{#            background: linear-gradient(135deg, #6e8efb, #a777e3);#}
+{#            color: white;#}
+{#            border: none;#}
+{#            border-radius: 25px;#}
+{#            padding: 0 20px;#}
+{#            margin-left: 10px;#}
+{#            cursor: pointer;#}
+{#            font-size: 1rem;#}
+{#            font-weight: bold;#}
+{#            transition: transform 0.2s, opacity 0.2s;#}
+{#        }#}
+{##}
+{#        #send-button:hover {#}
+{#            opacity: 0.9;#}
+{#            transform: scale(1.02);#}
+{#        }#}
+{##}
+{#        .typing-indicator {#}
+{#            display: none;#}
+{#            align-self: flex-start;#}
+{#            padding: 10px 15px;#}
+{#            background-color: #eee;#}
+{#            border-radius: 18px;#}
+{#            font-style: italic;#}
+{#            color: #666;#}
+{#        }#}
+{##}
+{#        .typing-indicator span {#}
+{#            display: inline-block;#}
+{#            width: 8px;#}
+{#            height: 8px;#}
+{#            margin: 0 2px;#}
+{#            background-color: #999;#}
+{#            border-radius: 50%;#}
+{#            animation: typing-dots 1.4s infinite both;#}
+{#        }#}
+{##}
+{#        .typing-indicator span:nth-child(2) {#}
+{#            animation-delay: 0.2s;#}
+{#        }#}
+{##}
+{#        .typing-indicator span:nth-child(3) {#}
+{#            animation-delay: 0.4s;#}
+{#        }#}
+{##}
+{#        @keyframes typing-dots {#}
+{#            0%, 60%, 100% { transform: translateY(0); }#}
+{#            30% { transform: translateY(-5px); }#}
+{#        }#}
+{##}
+{#        /* Animation pour les nouveaux messages */#}
+{#        @keyframes fadeIn {#}
+{#            from { opacity: 0; transform: translateY(10px); }#}
+{#            to { opacity: 1; transform: translateY(0); }#}
+{#        }#}
+{##}
+{#        .message {#}
+{#            animation: fadeIn 0.3s ease-out;#}
+{#        }#}
+{##}
+{#        /* Styles supplémentaires pour les anomalies */#}
+{#        .anomaly-info {#}
+{#            margin-top: 10px;#}
+{#            padding: 10px;#}
+{#            background-color: #f8f9fa;#}
+{#            border-radius: 8px;#}
+{#            font-size: 0.9rem;#}
+{#        }#}
+{##}
+{#        .anomaly-table {#}
+{#            width: 100%;#}
+{#            margin-top: 10px;#}
+{#            border-collapse: collapse;#}
+{#            font-size: 0.8rem;#}
+{#        }#}
+{##}
+{#        .anomaly-table th, .anomaly-table td {#}
+{#            padding: 8px 12px;#}
+{#            border: 1px solid #ddd;#}
+{#            text-align: left;#}
+{#        }#}
+{##}
+{#        .anomaly-table th {#}
+{#            background-color: #f1f1f1;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <div class="chat-container">#}
+{#        <div class="chat-header">#}
+{#            Expert Industriel - Chatbot#}
+{#        </div>#}
+{#        <div class="chat-messages" id="chat-messages">#}
+{#            <div class="bot-message message">#}
+{#                Bonjour ! Je suis votre expert en durabilité industrielle. Décrivez-moi votre problème et je vous fournirai des recommandations ainsi qu'une analyse des anomalies potentielles.#}
+{#            </div>#}
+{#            <div class="typing-indicator" id="typing-indicator">#}
+{#                Typing <span></span><span></span><span></span>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="chat-input">#}
+{#            <input type="text" id="user-input" placeholder="Décrivez votre problème industriel..." autocomplete="off">#}
+{#            <button id="send-button">Envoyer</button>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <script>#}
+{#        document.addEventListener('DOMContentLoaded', function() {#}
+{#            const chatMessages = document.getElementById('chat-messages');#}
+{#            const userInput = document.getElementById('user-input');#}
+{#            const sendButton = document.getElementById('send-button');#}
+{#            const typingIndicator = document.getElementById('typing-indicator');#}
+{##}
+{#            function addMessage(message, isUser) {#}
+{#                const messageDiv = document.createElement('div');#}
+{#                messageDiv.classList.add('message');#}
+{#                messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');#}
+{##}
+{#                if (typeof message === 'string') {#}
+{#                    messageDiv.innerHTML = message.replace(/\n/g, '<br>');#}
+{#                } else {#}
+{#                    messageDiv.innerHTML = formatBotResponse(message);#}
+{#                }#}
+{##}
+{#                chatMessages.insertBefore(messageDiv, typingIndicator);#}
+{#                chatMessages.scrollTop = chatMessages.scrollHeight;#}
+{#            }#}
+{##}
+{#            function formatBotResponse(response) {#}
+{#                let html = response.response.replace(/\n/g, '<br>');#}
+{##}
+{#                if (response.problem && response.anomalies) {#}
+{#                    html += `<div class="anomaly-info">#}
+{#                        <strong>Problème détecté :</strong> ${response.problem.Categorie} > ${response.problem['Sous-categorie']}#}
+{#                        <br><strong>Seuils appliqués :</strong> ${JSON.stringify(response.problem.Seuils)}#}
+{#                    </div>`;#}
+{##}
+{#                    if (response.anomalies.length > 0) {#}
+{#                        html += '<table class="anomaly-table"><tr>';#}
+{##}
+{#                        // En-têtes#}
+{#                        const cols = ['Equipment_ID', 'Equipment_Name', 'Supplier_Name', ...response.problem.Indicateurs];#}
+{#                        cols.forEach(col => {#}
+{#                            html += `<th>${col}</th>`;#}
+{#                        });#}
+{#                        html += '</tr>';#}
+{##}
+{#                        // Données#}
+{#                        response.anomalies.forEach(item => {#}
+{#                            html += '<tr>';#}
+{#                            cols.forEach(col => {#}
+{#                                html += `<td>${item[col]}</td>`;#}
+{#                            });#}
+{#                            html += '</tr>';#}
+{#                        });#}
+{##}
+{#                        html += '</table>';#}
+{#                    } else {#}
+{#                        html += '<div class="anomaly-info">Aucune anomalie détectée selon les critères.</div>';#}
+{#                    }#}
+{#                }#}
+{##}
+{#                return html;#}
+{#            }#}
+{##}
+{#            async function handleSend() {#}
+{#                const message = userInput.value.trim();#}
+{#                if (message) {#}
+{#                    addMessage(message, true);#}
+{#                    userInput.value = '';#}
+{##}
+{#                    typingIndicator.style.display = 'flex';#}
+{#                    chatMessages.scrollTop = chatMessages.scrollHeight;#}
+{##}
+{#                    try {#}
+{#                        const response = await fetch('/api/chat', {#}
+{#                            method: 'POST',#}
+{#                            headers: {#}
+{#                                'Content-Type': 'application/json',#}
+{#                            },#}
+{#                            body: JSON.stringify({ message: message })#}
+{#                        });#}
+{##}
+{#                        if (!response.ok) {#}
+{#                            throw new Error('Erreur du serveur');#}
+{#                        }#}
+{##}
+{#                        const data = await response.json();#}
+{##}
+{#                        if (data.error) {#}
+{#                            throw new Error(data.error);#}
+{#                        }#}
+{##}
+{#                        addMessage(data, false);#}
+{#                    } catch (error) {#}
+{#                        addMessage(`Erreur: ${error.message}`, false);#}
+{#                    } finally {#}
+{#                        typingIndicator.style.display = 'none';#}
+{#                    }#}
+{#                }#}
+{#            }#}
+{##}
+{#            sendButton.addEventListener('click', handleSend);#}
+{##}
+{#            userInput.addEventListener('keypress', function(e) {#}
+{#                if (e.key === 'Enter') {#}
+{#                    handleSend();#}
+{#                }#}
+{#            });#}
+{##}
+{#            userInput.focus();#}
+{#        });#}
+{#    </script>#}
+{#</body>#}
+{#</html>#}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Extraordinaire</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-container {
+            max-width: 800px;
+            width: 100%;
+            height: 80vh;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .model-link {
+            position: absolute;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: normal;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .model-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 12px 15px;
+            border-radius: 18px;
+            line-height: 1.4;
+            position: relative;
+            word-wrap: break-word;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: #ffffff;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-top-left-radius: 5px;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            border-top-right-radius: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        #user-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        #user-input:focus {
+            border-color: #a777e3;
+        }
+
+        #send-button {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 0 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        #send-button:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .typing-indicator {
+            display: none;
+            align-self: flex-start;
+            padding: 10px 15px;
+            background-color: #eee;
+            border-radius: 18px;
+            font-style: italic;
+            color: #666;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            margin: 0 2px;
+            background-color: #999;
+            border-radius: 50%;
+            animation: typing-dots 1.4s infinite both;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing-dots {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        /* Animation pour les nouveaux messages */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Styles pour les anomalies */
+        .anomaly-info {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .anomaly-table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        .anomaly-table th, .anomaly-table td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .anomaly-table th {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            Expert Industriel - Chatbot
+            <a href=" https://Green-Pulse.com/ChatBot/" class="model-link" target="_blank">Accéder au modèle</a>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="bot-message message">
+                Hello! I am your industrial sustainability expert. Describe your problem, and I will provide you with recommendations and an analysis of potential anomalies.            </div>
+            <div class="typing-indicator" id="typing-indicator">
+                Typing <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Décrivez votre problème industriel..." autocomplete="off">
+            <button id="send-button">Envoyer</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            const typingIndicator = document.getElementById('typing-indicator');
+
+            function addMessage(message, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+
+                if (typeof message === 'string') {
+                    messageDiv.innerHTML = message.replace(/\n/g, '<br>');
+                } else {
+                    messageDiv.innerHTML = formatBotResponse(message);
+                }
+
+                chatMessages.insertBefore(messageDiv, typingIndicator);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function formatBotResponse(response) {
+                let html = response.response.replace(/\n/g, '<br>');
+
+                if (response.problem && response.anomalies) {
+                    html += `<div class="anomaly-info">
+                        <strong>Problème détecté :</strong> ${response.problem.Categorie} > ${response.problem['Sous-categorie']}
+                        <br><strong>Seuils appliqués :</strong> ${JSON.stringify(response.problem.Seuils)}
+                    </div>`;
+
+                    if (response.anomalies.length > 0) {
+                        html += '<table class="anomaly-table"><tr>';
+
+                        // En-têtes
+                        const cols = ['Equipment_ID', 'Equipment_Name', 'Supplier_Name', ...response.problem.Indicateurs];
+                        cols.forEach(col => {
+                            html += `<th>${col}</th>`;
+                        });
+                        html += '</tr>';
+
+                        // Données
+                        response.anomalies.forEach(item => {
+                            html += '<tr>';
+                            cols.forEach(col => {
+                                html += `<td>${item[col]}</td>`;
+                            });
+                            html += '</tr>';
+                        });
+
+                        html += '</table>';
+                    } else {
+                        html += '<div class="anomaly-info">Aucune anomalie détectée selon les critères.</div>';
+                    }
+                }
+
+                return html;
+            }
+
+            async function handleSend() {
+                const message = userInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    userInput.value = '';
+
+                    typingIndicator.style.display = 'flex';
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    try {
+                        const response = await fetch('/api/chat', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ message: message })
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Erreur du serveur');
+                        }
+
+                        const data = await response.json();
+
+                        if (data.error) {
+                            throw new Error(data.error);
+                        }
+
+                        addMessage(data, false);
+                    } catch (error) {
+                        addMessage(`Erreur: ${error.message}`, false);
+                    } finally {
+                        typingIndicator.style.display = 'none';
+                    }
+                }
+            }
+
+            sendButton.addEventListener('click', handleSend);
+
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleSend();
+                }
+            });
+
+            userInput.focus();
+        });
+    </script>
+</body>
+</html>
